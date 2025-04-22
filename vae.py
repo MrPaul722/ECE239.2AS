@@ -195,17 +195,17 @@ class CVAE(nn.Module):
         ############################################################################################
         # Replace "pass" statement with your code
         
-        x_flat = torch.flatten(x, start_dim=1)  # (N, 1, 28, 28) → (N, 784)
-        x_cond = torch.cat([x_flat, labels], dim=1)  # (N, 794)
+        x_flat = torch.flatten(x, start_dim=1)  
+        x_cond = torch.cat([x_flat, labels], dim=1)  
 
-        hidden = self.encoder(x_cond)  # → (N, hidden_dim)
-        mu = self.mu_layer(hidden)     # → (N, latent_size)
-        logvar = self.logvar_layer(hidden)  # → (N, latent_size)
+        hidden = self.encoder(x_cond) 
+        mu = self.mu_layer(hidden)   
+        logvar = self.logvar_layer(hidden) 
         
         z = reparametrize(mu, logvar) 
 
-        z_cond = torch.cat([z, labels], dim=1)  # (N, latent_size + num_classes)
-        x_hat = self.decoder(z_cond)            # → (N, 1, 28, 28)
+        z_cond = torch.cat([z, labels], dim=1)  
+        x_hat = self.decoder(z_cond)            
 
         ############################################################################################
         #                                      END OF YOUR CODE                                    #
